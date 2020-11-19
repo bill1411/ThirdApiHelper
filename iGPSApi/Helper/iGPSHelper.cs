@@ -43,9 +43,9 @@ namespace iGPSApi.Helper
             
             //序列化要请求的参数
             string poststr = JsonConvert.SerializeObject(request);
-
+            
             //发请求，获取数据
-            return tokenString;  // HttpHelper.HttpPost(url,poststr);
+            return HttpHelper.HttpPost(url,poststr);
         }
         #endregion
 
@@ -61,11 +61,11 @@ namespace iGPSApi.Helper
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("Authorization", "Bearer " + token);
 
-            VehicleInfoRequest request = new VehicleInfoRequest();
-            request.VehiclePlates = VehiclePlates;
-            string poststr = JsonConvert.SerializeObject(request);
+            Dictionary<string, string> pstr = new Dictionary<string, string>();
+            pstr.Add("VehiclePlates", VehiclePlates[0].ToString());
+            string poststr =  JsonConvert.SerializeObject(pstr);
 
-            return vehicleInfoString; //HttpHelper.HttpPost(url, poststr,null,dict);
+            return HttpHelper.HttpPost(url, poststr,null,dict);
         }
         #endregion
 
@@ -82,11 +82,11 @@ namespace iGPSApi.Helper
             Dictionary<string, string> dict = new Dictionary<string, string>();
             dict.Add("Authorization", "Bearer " + token);
 
-            DeviceIDsInfoRequest request = new DeviceIDsInfoRequest();
-            request.DeviceIDs = DeviceIDs;
-            string poststr = JsonConvert.SerializeObject(request);
+            Dictionary<string, string> pstr = new Dictionary<string, string>();
+            pstr.Add("DeviceIDs", DeviceIDs[0].ToString());
+            string poststr = JsonConvert.SerializeObject(pstr);
 
-            return vehicleInfoString; //HttpHelper.HttpPost(url, poststr,null,dict);
+            return HttpHelper.HttpPost(url, poststr,null,dict);
         }
         #endregion
 
