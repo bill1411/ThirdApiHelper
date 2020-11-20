@@ -12,7 +12,7 @@ namespace FhldApi.Helper
     public class fhldHelper
     {
         //定义基础调用地址
-        private const string BaseApi = "http://oapi.fhldtech.com/person-risk/v1/comprehensiveassessment";
+        private const string BaseApi = "http://oapi.fhldtech.com/person-risk/v1/comprehensive-assessment";
         private const string accessId = "";
         private const string accessSecret = "";
 
