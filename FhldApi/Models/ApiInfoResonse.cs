@@ -104,7 +104,7 @@ namespace FhldApi.Models
         /// <summary>
         /// 出生日期，用“YYYY-MM-DD”的格式表示
         /// </summary>
-        public string birthdate { get; set; }
+        public string brithdate { get; set; }
 
     }
     #endregion
@@ -166,7 +166,7 @@ namespace FhldApi.Models
         /// <summary>
         /// 检测详情
         /// </summary>
-        public List<Detail> detail;
+        public List<Detail> details;
     }
     #endregion
 
@@ -180,11 +180,11 @@ namespace FhldApi.Models
         /// <summary>
         /// 检测详情表头
         /// </summary>
-        public string header { get; set; }
+        public List<string> header { get; set; }
         /// <summary>
         /// 检测详情表值列表
         /// </summary>
-        public string values { get; set; }
+        public List<List<string>> values { get; set; }
     }
     #endregion
 
