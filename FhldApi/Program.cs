@@ -29,6 +29,9 @@ namespace FhldApi
             if (response.code == 200)
             {
                 Console.WriteLine("获取到的数据是：" + response.body.result + " " + response.body.suggestion);
+                string content = FilterBigDataJson(response.body);
+
+                Console.WriteLine("复杂的详细信息结果集：" + content);
                 Console.ReadKey();
             }
             else
@@ -37,5 +40,50 @@ namespace FhldApi
                 Console.ReadKey();
             }
         }
+
+        #region  过滤不需要的信息
+        private static string FilterBigDataJson(Body jsonBody)
+        {
+            Body body = new Body();
+            Content content = new Content();
+
+            body.id = jsonBody.id;
+            body.result = jsonBody.result;
+            body.suggestion = jsonBody.suggestion;
+            body.time = jsonBody.time;
+
+            Person person = new Person();
+            person.info = jsonBody.content.person.info;
+            person.detections = GetDetections(jsonBody.content.person.detections);
+            content.person = person;
+
+            Phone phone = new Phone();
+            phone.info = jsonBody.content.phone.info;
+            phone.detections = GetDetections(jsonBody.content.phone.detections);
+            content.phone = phone;
+
+            body.content = content;
+
+            return JsonConvert.SerializeObject(body);
+        }
+        #endregion
+
+        #region  根据条件过滤Detections集合
+        private static List<Detections> GetDetections(List<Detections> info)
+        {
+            List<Detections> listDetection = new List<Detections>();
+            if (info.Count > 0)
+            {
+                foreach (var item in info)
+                {
+                    if (!item.conclusion.Contains("通过") && !item.conclusion.Contains("无风险"))
+                    {
+                        listDetection.Add(item);
+                    }
+                }
+            }
+            return listDetection;
+        }
+        #endregion
     }
 }
